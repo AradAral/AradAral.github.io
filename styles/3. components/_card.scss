@@ -1,0 +1,9 @@
+$white-card-shadow: 0 3px 10px rgba(black, 2%);
+$card-border-radius: 30px;
+
+.card {
+    display: block;
+    background-color: white;
+    border-radius: $card-border-radius;
+    box-shadow: $white-card-shadow;
+}

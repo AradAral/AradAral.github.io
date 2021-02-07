@@ -1,0 +1,133 @@
+.course-hero-section {
+    background-color: white;
+    box-shadow: $white-card-shadow;
+
+    @include respond($until: large-1) {
+        text-align: center;
+        @include padding-y(30px);
+    }
+
+    @include respond($from: large-1) {
+        display: grid;
+        grid-template-columns: 2fr 1fr;
+        grid-template-rows: 1fr repeat(3, auto) 1fr; // What is the default value of these template properties?
+        grid-template-areas:
+            "main ."
+            "main head"
+            "main price"
+            "main button"
+            "main .";
+        column-gap: 30px;
+        @include padding-y(65px);
+    }
+
+    &__head {
+        grid-area: head;
+        overflow: hidden;
+        @include aspect-ratio(16, 9);
+
+        @include respond($until: large-1) {
+            max-width: 400px;
+            @include margin-x(auto);
+        }
+    }
+
+    &__image {
+        @include fit-parent-aspect-ratio;
+        object-fit: cover;
+    }
+
+    &__main {
+        grid-area: main;
+        align-self: center;
+
+        @include respond($until: large-1) {
+            margin-top: 20px;
+        }
+    }
+
+    &__price {
+        grid-area: price;
+
+        @include respond($until: large-1) {
+            margin-top: 30px;
+        }
+
+        @include respond($from: large-1) {
+            margin-top: 22px;
+        }
+    }
+
+    &__button {
+        grid-area: button;
+
+        @include respond($until: large-1) {
+            position: fixed;
+            width: 100%;
+            bottom: 0;
+            right: 0;
+            border-radius: 0;
+            z-index: z-index(course-hero-section-button);
+        }
+
+        @include respond($from: large-1) {
+            margin-top: 20px;
+        }
+    }
+
+    // Elements - Main:
+    &__heading {
+    }
+
+    &__title {
+        font-size: 30rem;
+        line-height: 2;
+
+        @include respond($from: large-1) {
+            display: inline;
+            vertical-align: middle;
+        }
+    }
+
+    &__discount-mark {
+        @include respond($until: large-1) {
+            @include margin-y(10px, 5px);
+        }
+
+        @include respond($from: large-1) {
+            margin-right: 10px;
+            vertical-align: middle;
+        }
+    }
+
+    &__description {
+        font: {
+            size: 18rem;
+            weight: bold;
+        }
+        line-height: 2.2;
+        color: #404040;
+
+        @include respond($until: large-1) {
+            margin-top: 20px;
+        }
+
+        @include respond($from: large-1) {
+            margin-top: 15px;
+        }
+    }
+
+    &__feature-list {
+        margin-top: 30px;
+    }
+
+    &__star-rating {
+        margin-right: 15px;
+        vertical-align: middle;
+    }
+
+    &__rating-mark {
+        margin-right: 7px;
+        vertical-align: middle;
+    }
+}

@@ -1,0 +1,70 @@
+// Global variables that are meant to accessible throughout the project:
+
+// The Base Palette: This map defines the base colors reused throughout the website, and is also diretly accessed when a specific color is needed, that happens either purely because of aesthetics and decoration, or because the nature of a certain UI element always requries a particular color.
+// e.g. The "star" component, which should always be yellow / The "link" component, which always should always be blue. The map is also sometimes used in an "@each" loop to automatically create color modifiers for a component.
+$colors: (
+    "blue": hsl(202, 100%, 50%),
+    "green": hsl(150, 100%, 37%),
+    "red": hsl(342, 100%, 50%),
+    "yellow": hsl(46, 100%, 52%),
+    "purple": hsl(235, 100%, 68%),
+);
+
+// The Brand Palette: This map is used when colors are needed based on their role in the general design system.
+// e.g. The button component needs "color--primary", "color--secondary", etc. modifiers. The map is used in an "@each" loop to create the modifiers automatically.
+$brand-colors: (
+    "primary": color("blue"),
+    "secondary": color("green"),
+    "tertiary": color("red"),
+    "quaternary": color("yellow"),
+);
+
+// The Semantic Palette: This map is used when colors are needed based on the feeling and meaning that they convey.
+// e.g. The "mark" and "toast" components that need "success", "info", etc. modifiers. The map is used in an "@each" loop to create the modifiers automatically.
+$semantic-colors: (
+    "success": color("green"),
+    "error": color("red"),
+    "info": color("blue"),
+    "alert": color("yellow"),
+);
+
+// $role-colors: (
+//     "body-background": hsl(220, 27%, 98%),
+// );
+
+$z-indexes: (
+    "preloading-screen": 11,
+    "header": 10,
+    "course-hero-section-button": 10,
+    "toast": 11,
+    "blazor-error-toast": 12,
+);
+
+// $breakpoints: (
+//     "small-1": 400px,
+//     "small-2": 450px,
+//     "small-3": 550px,
+//     "small-4": 650px,
+//     "medium-1": 750px,
+//     "medium-2": 800px,
+//     "medium-3": 850px,
+//     "large-1": 950px,
+//     "large-2": 1050px,
+//     "large-3": 1100px,
+//     "large-4": 1150px,
+// );
+
+$breakpoints: (
+    "small-1": 400px,
+    "small-2": 450px,
+    "small-3": 550px,
+    "small-4": 650px,
+    "medium-1": 700px,
+    "medium-2": 750px,
+    "medium-3": 800px,
+    "medium-4": 850px,
+    "large-1": 950px,
+    "large-2": 1050px,
+    "large-3": 1100px,
+    "large-4": 1150px,
+);

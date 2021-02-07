@@ -1,0 +1,125 @@
+.toast {
+    position: fixed;
+    display: flex;
+    font-size: 15rem;
+    min-height: 55px;
+    max-width: 1000px;
+    box-shadow: 0 3px 10px rgba(black, 10%);
+    z-index: z-index(toast);
+    overflow: hidden;
+
+    @include respond($until: medium-2) {
+        right: 0;
+        bottom: 0;
+        left: 0;
+        border-radius: $card-border-radius $card-border-radius 0 0;
+        animation: slide-up 700ms cubic-bezier(0.4, 0.38, 0, 1);
+    }
+
+    @include respond($from: medium-2) {
+        right: 40px;
+        bottom: 35px;
+        margin-left: 40px;
+        border-radius: $card-border-radius;
+        animation: toast-slide-left 500ms cubic-bezier(0.07, 0.5, 0, 1);
+    }
+
+    // Elements:
+    &__icon {
+        fill: currentColor;
+        flex-shrink: 0;
+        align-self: center;
+        height: 1em;
+
+        @include respond($until: medium-2) {
+            margin-right: 25px;
+        }
+
+        @include respond($from: medium-2) {
+            margin-right: 20px;
+        }
+    }
+
+    &__content {
+        flex-grow: 1;
+        @include flex-vertical-center;
+        font-weight: bold;
+        padding: 10px 20px;
+        line-height: 2;
+
+        @include respond($until: medium-2) {
+            justify-content: space-between;
+        }
+
+        @include respond($from: medium-2) {
+            border-radius: 0 $card-border-radius $card-border-radius 0;
+            margin-right: 15px;
+        }
+    }
+
+    &__dismiss {
+        cursor: pointer;
+        fill: currentColor;
+        margin-right: 15px;
+        width: 10px;
+        height: 10px;
+        flex-shrink: 0;
+        opacity: 0.5;
+        transition: all ease 200ms;
+
+        &:hover {
+            opacity: 0.8;
+        }
+    }
+
+    // Modifiers | Themes:
+    @each $name, $color in $semantic-colors {
+        &--theme--#{$name} {
+            color: color-to-contrast($color);
+
+            @include respond($until: medium-2) {
+                background-color: rgba($color, 90%);
+                backdrop-filter: blur(2px);
+            }
+
+            @include respond($from: medium-2) {
+                background-color: darken($color, 5%);
+            }
+        }
+
+        @include respond($from: medium-2) {
+            &--theme--#{$name} &__content {
+                background-color: $color;
+            }
+        }
+    }
+
+    // Modifiers | Visibility:
+    &--hidden {
+        pointer-events: none;
+        animation: 500ms ease forwards;
+
+        @include respond($until: medium-2) {
+            animation-name: slide-down;
+        }
+
+        @include respond($from: medium-2) {
+            animation-name: toast-slide-right;
+        }
+    }
+}
+
+// Animations:
+@keyframes toast-slide-left {
+    from {
+        opacity: 0;
+        transform: translateX(150px);
+    }
+}
+
+@keyframes toast-slide-right {
+    to {
+        opacity: 0;
+        transform: translateX(200px);
+    }
+}

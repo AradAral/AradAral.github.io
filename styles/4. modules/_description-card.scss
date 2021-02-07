@@ -1,0 +1,99 @@
+$card-horizontal-padding: 60px;
+$card-horizontal-padding--mobile: 35px;
+
+$line-height: 2.5;
+
+.description-card {
+    font-size: 15rem;
+    line-height: $line-height;
+    color: #515151;
+
+    // TODO: Refacor this if possible, especially the media queries in the heading marker. The code is repeated.
+    // UPDATE: I refactored it a little bit.
+    @include respond($until: small-3) {
+        padding: 30px $card-horizontal-padding--mobile 25px;
+    }
+
+    @include respond($from: small-3) {
+        padding: 50px $card-horizontal-padding 35px;
+    }
+
+    // Elements:
+    &__primary-heading {
+        position: relative;
+        // TODO: The following 3 properties are the exact same as "&__title" of "instructor-card"
+        font: {
+            size: 20rem;
+            weight: bold;
+        }
+        color: #3a3a3a;
+
+        &:not(:first-child) {
+            margin-top: 2.5em;
+        }
+
+        // Heading marker
+        &::before {
+            content: "";
+            position: absolute;
+
+            // We want the heading marker to be vertically-center-aligned with (only) the "first line" of the heading text. So, there are 2 steps to achieve that:
+            // a. Bring the marker down by half of the height of a line.
+            top: ($line-height / 2) + em;
+            // b. Then bring it up by half of its own height, so that it's perfectly vertically centered with the first line of the heading.
+            transform: translateY(-50%);
+
+            @include respond($until: small-3) {
+                // 1. Occupy half of the available horizontal space at the right side of the heading (which is equal to the horizontal padding of the card)
+                width: $card-horizontal-padding--mobile / 2;
+
+                // 2. Go and stick to the right edge of the card
+                right: -$card-horizontal-padding--mobile;
+            }
+
+            @include respond($from: small-3) {
+                // 1. Occupy half of the available horizontal space at the right side of the heading (which is equal to the horizontal padding of the card)
+                width: $card-horizontal-padding / 2;
+
+                // 2. Go and stick to the right edge of the card
+                right: -$card-horizontal-padding;
+            }
+
+            height: 8px;
+            border-radius: 5px 0 0 5px;
+            background-color: #f3f6fc;
+        }
+    }
+
+    &__paragraph {
+        &:not(:first-child) {
+            margin-top: 1em;
+        }
+    }
+
+    &__list {
+        &:not(:first-child) {
+            margin-top: 1em;
+        }
+    }
+
+    &__list-item {
+        position: relative;
+        padding-right: 20px;
+
+        &:not(:first-child) {
+            margin-top: 0.5em;
+        }
+
+        // List Item Marker:
+        &::before {
+            content: "";
+            @include absolute-vertical-center;
+            right: 0;
+            width: 6px;
+            height: 6px;
+            background-color: lighten(color("yellow"), 20%);
+            border-radius: 50%;
+        }
+    }
+}

@@ -1,0 +1,44 @@
+.row-title {
+    text-align: center;
+    line-height: 2.2;
+
+    @include respond($until: large-1) {
+        margin-top: 100px;
+        margin-bottom: 25px;
+    }
+
+    @include respond($from: large-1) {
+        margin-top: 150px;
+        margin-bottom: 50px;
+    }
+
+    &:first-child {
+        margin-top: 50px;
+    }
+
+    // Elements:
+    &__title {
+        position: relative;
+        font: {
+            size: 24rem;
+            weight: bold;
+        }
+
+        &::after {
+            content: "";
+            display: block;
+            width: 30px;
+            height: 2.5px;
+            background-color: color("green");
+            @include margin-x(auto);
+            margin-top: 15px;
+            border-radius: 15px;
+        }
+    }
+
+    &__description {
+        color: #a1a1a1;
+        font-size: 18rem;
+        margin-top: 20px;
+    }
+}

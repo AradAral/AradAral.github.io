@@ -1,0 +1,137 @@
+.placeholder {
+    position: relative;
+    overflow: hidden;
+
+    &::before {
+        content: attr(data-fake-content);
+        display: block;
+        height: 100%;
+        color: transparent;
+    }
+
+    &::after {
+        content: "";
+        position: absolute;
+        top: 0;
+        left: -40%;
+        display: block;
+        width: 40%;
+        height: 100%;
+        background: linear-gradient(
+            to right,
+            transparent 0%,
+            rgba(255, 255, 255, 0.5) 50%,
+            transparent 100%
+        );
+        animation: load 1s cubic-bezier(0.4, 0, 0.2, 1) infinite;
+    }
+
+    // Modifiers | Importance:
+    &--importance--primary::before {
+        background-color: #ebebeb;
+    }
+
+    &--importance--secondary::before {
+        background-color: #f3f3f3;
+    }
+
+    // Modifiers | Radiuses:
+    &--radius--circular::before {
+        border-radius: 50%;
+    }
+
+    &--radius--large::before {
+        border-radius: $card-border-radius;
+    }
+
+    &--radius--medium::before {
+        border-radius: 15rem;
+    }
+
+    &--radius--small::before {
+        border-radius: 10px;
+    }
+
+    // Modifiers | Heights:
+    &--height--xlarge::before {
+        height: 60rem;
+    }
+
+    &--height--large::before {
+        height: 42rem;
+    }
+
+    &--height--medium::before {
+        height: 35rem;
+    }
+
+    &--height--small::before {
+        height: 17rem;
+    }
+
+    // Modifiers | Widths:
+    $widths: 10, 20, 30, 40, 50, 60, 70, 80, 90;
+    @each $width in $widths {
+        &--width--#{$width} {
+            width: $width * 1%;
+        }
+    }
+    &--width--same-as-height::before {
+        padding-bottom: 100%;
+    }
+
+    // Modifiers | Positions:
+    &--align--center {
+        @include margin-x(auto);
+    }
+
+    &--align--right {
+        @include margin-x(0, auto);
+    }
+
+    &--show {
+        display: block;
+    }
+
+    &--hide {
+        display: none;
+    }
+
+    @each $key, $value in $breakpoints {
+        &--align--right\@#{$key} {
+            @include respond($from: $key) {
+                @include margin-x(0, auto);
+            }
+        }
+        &--align--center\@#{$key} {
+            @include respond($from: $key) {
+                @include margin-x(0, auto);
+            }
+        }
+
+        &--hide\@#{$key} {
+            @include respond($from: $key) {
+                display: none;
+            }
+        }
+        &--show\@#{$key} {
+            @include respond($from: $key) {
+                display: block;
+            }
+        }
+    }
+
+    // Modifiers | Types:
+    &--type--text {
+        // To reflect the line-height:
+        border-width: 0.5em 0;
+        border-style: solid;
+        border-color: transparent;
+    }
+}
+
+@keyframes load {
+    to {
+        left: 100%;
+    }
+}

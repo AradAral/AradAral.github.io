@@ -1,0 +1,67 @@
+.expandable-section {
+    position: relative;
+    // transition: all ease 1s;
+    will-change: height;
+    overflow: hidden;
+
+    &::after {
+        content: "";
+        position: absolute;
+        bottom: 0;
+        right: 0;
+        left: 0;
+        // transition: inherit;
+    }
+
+    // Elements:
+    &__button {
+        @include margin-x(auto);
+
+        // Modifiers | Sizes:
+        &--margin--small {
+            margin-top: 10rem;
+        }
+        &--margin--medium {
+            margin-top: 30rem;
+        }
+        &--margin--large {
+            margin-top: 40rem;
+        }
+    }
+
+    // Modifiers | Sizes:
+    &--size--small::after {
+        height: 70px;
+    }
+
+    &--size--medium::after {
+        height: 100px;
+    }
+
+    &--size--large::after {
+        height: 130px;
+    }
+
+    // Modifiers | Fade-to colors:
+    &--fade-to--white::after {
+        background: linear-gradient(transparent, white);
+    }
+
+    &--fade-to--body-background::after {
+        background: linear-gradient(transparent, $body-background-color);
+    }
+
+    // Modifiers | Expanded:
+    &--expanded {
+        height: auto;
+    }
+    &--expanded::after {
+        display: none;
+    }
+}
+
+@keyframes opacity {
+    from {
+        opacity: 0;
+    }
+}

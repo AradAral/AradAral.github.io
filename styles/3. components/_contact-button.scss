@@ -1,0 +1,65 @@
+$border-radius: 15px;
+
+.contact-button {
+    @include flex-vertical-center;
+    height: 42px;
+    padding: 0 15px;
+    border-radius: $border-radius;
+    will-change: transform;
+    transition: all cubic-bezier(0.17, 0.82, 0.15, 0.8) 100ms;
+
+    &:active {
+        transform: translateY(2px);
+    }
+
+    // Elements:
+    &__icon {
+        width: 14px;
+        height: 14px;
+        box-sizing: content-box;
+        padding-left: 8px;
+        border-left: 1px solid;
+        margin-left: 10px;
+    }
+
+    &__label {
+        flex-grow: 1;
+        text-align: center;
+        font: {
+            size: 13px;
+            weight: bold;
+        }
+        color: #3c3c3c;
+    }
+
+    // Modifiers | Targets:
+    $targets: (
+        whatsapp: #4fdd2c,
+        instagram: #ff46e9,
+        call: #ffcb00,
+    );
+    @each $target, $color in $targets {
+        &--target--#{$target} {
+            @include dashed-border(
+                $width: 2px,
+                $color: $color,
+                $length: 8px,
+                $gap: 8px,
+                $radius: $border-radius
+            );
+
+            background-color: rgba($color, 20%);
+            @include can-hover {
+                &:hover {
+                    background-color: rgba($color, 30%);
+                }
+            }
+            &:active {
+                background-color: rgba($color, 35%);
+            }
+        }
+        &--target--#{$target} &__icon {
+            border-color: $color;
+        }
+    }
+}

@@ -1,0 +1,73 @@
+.footer {
+    background-color: white;
+    margin-top: 50px;
+    box-shadow: 0 -3px 10px rgba(black, 2%);
+
+    &__contact-buttons {
+        padding-top: 30px;
+        justify-content: center;
+
+        @include respond($until: small-4) {
+            display: grid;
+        }
+        @include respond($from: small-4) {
+            display: flex;
+        }
+    }
+
+    &__contact-button {
+        @include respond($until: small-4) {
+            &:not(:first-child) {
+                margin-top: 15px;
+            }
+        }
+        @include respond($from: small-4) {
+            &:not(:first-child) {
+                margin-right: 15px;
+            }
+        }
+    }
+
+    &__separator {
+        // This is a common technique for creating dashed borders with custom widths and gaps, as CSS doesn't allow to customize the dashed border style natively.
+        // The first color in this linear-gradient would be the color of the border.
+        // The percentage is what portion of the width of "each pair" would be the colored part. (Refer to the next comment)
+        background-image: linear-gradient(to left, #eaeaea 50%, transparent 0%);
+        background-position: top right;
+        // The second number is the height or the border (i.e. border size)
+        // The first number is the width of every pair of colored and transparent, which when repeated across the X or Y axis would mimic a dashed border.
+        background-size: 20px 100%; // 100% means 100% of the height of the element, which we set below
+        background-repeat: repeat-x;
+        height: 2px;
+        margin-top: 20px;
+    }
+
+    &__copyright {
+        color: #c9c9c9;
+        font: {
+            size: 13px;
+            weight: bold;
+        }
+        text-align: center;
+        @include padding-y(25px);
+    }
+
+    &__links {
+        display: flex;
+        justify-content: center;
+        margin-top: 40px;
+    }
+
+    &__link-item {
+        &:not(:last-child) {
+            padding-left: 13px;
+            border-left: 1px solid #e0e0e0;
+            margin-left: 13px;
+        }
+    }
+
+    &__link {
+        font-size: 13px;
+        color: #727272;
+    }
+}

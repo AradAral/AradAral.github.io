@@ -1,0 +1,84 @@
+.button {
+    cursor: pointer;
+    border-radius: 15px;
+    user-select: none;
+    will-change: transform;
+    transition: all cubic-bezier(0.17, 0.82, 0.15, 0.8) 100ms;
+    font-weight: bold;
+    @include flex-center;
+
+    &:active {
+        transform: translateY(2px);
+    }
+
+    &:disabled {
+        opacity: 0.7;
+        pointer-events: none;
+    }
+
+    // Elements:
+    &__icon {
+        margin-right: 10px;
+        width: 15px;
+        fill: currentColor;
+    }
+
+    &__number {
+        margin-right: 10px;
+        border-radius: 6px;
+        background-color: rgba(black, 17%);
+        width: 20px;
+        height: 20px;
+        font-weight: bold;
+        text-align: center;
+    }
+
+    // Modifiers | Sizes:
+    &--size--large {
+        height: 60px;
+        @include padding-x(30px);
+        font-size: 22rem;
+    }
+
+    &--size--medium {
+        height: 55px;
+        @include padding-x(25px);
+        font-size: 19px;
+    }
+
+    &--size--small {
+        height: 45px;
+        @include padding-x(20px);
+        font-size: 15px;
+    }
+
+    // Modifiers | Themes:
+    @each $name, $color in $brand-colors {
+        &--theme--#{$name} {
+            background-color: $color;
+            color: color-to-contrast($color);
+            box-shadow: 0 3px 10px rgba($color, 20%);
+
+            &:hover {
+                background-color: darken($color, 5%);
+            }
+
+            &:active {
+                background-color: darken($color, 10%);
+            }
+        }
+    }
+
+    &--theme--hollow {
+        background-color: white;
+        color: #222222;
+
+        &:hover {
+            background-color: #f3f3f3;
+        }
+
+        &:active {
+            background-color: #e6e6e6;
+        }
+    }
+}

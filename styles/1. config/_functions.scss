@@ -1,0 +1,49 @@
+// Helper functions for shorter usage of "map.get(...)":
+@use "sass:map";
+
+@function color($key) {
+    @if not map.has-key($colors, $key) {
+        @warn "No color with the key '#{$key}' found on the '$colors' map.";
+    }
+    @return map.get($colors, $key);
+}
+
+@function brand-color($key) {
+    @if not map.has-key($brand-colors, $key) {
+        @warn "No color with the key '#{$key}' found on the '$brand-colors' map.";
+    }
+    @return map.get($brand-colors, $key);
+}
+
+@function semantic-color($key) {
+    @if not map.has-key($semantic-colors, $key) {
+        @warn "No color with the key '#{$key}' found on the '$semantic-colors' map.";
+    }
+    @return map.get($semantic-colors, $key);
+}
+
+@function z-index($key) {
+    @if not map.has-key($z-indexes, $key) {
+        @warn "No z-index with the key '#{$key}' found on the '$z-indexes' map.";
+    }
+    @return map.get($z-indexes, $key);
+}
+
+// Other functions:
+// Returns either black or white depending on which one would have better contrast with the provided color.
+// The source of this function: https://bit.ly/3oJck8u
+@function color-to-contrast($color) {
+    $brightness: round(
+        (red($color) * 299) + (green($color) * 587) + (blue($color) * 114) /
+            1000
+    );
+    $light-color: round(
+        (red(white) * 299) + (green(white) * 587) + (blue(white) * 114) / 1000
+    );
+
+    @if abs($brightness) < ($light-color / 2) {
+        @return white;
+    } @else {
+        @return black;
+    }
+}

@@ -1,0 +1,16 @@
+.row-loading-indicator {
+    text-align: center;
+    animation: shimmer 1s linear infinite;
+    opacity: 0.5;
+
+    &::before {
+        content: "درحال بارگزاری...";
+        color: rgb(167, 167, 167);
+    }
+}
+
+@keyframes shimmer {
+    50% {
+        opacity: 1;
+    }
+}

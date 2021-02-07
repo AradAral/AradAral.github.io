@@ -1,0 +1,39 @@
+.price {
+    color: color("green");
+    font-weight: bold;
+
+    // Elements:
+    &__number {
+        vertical-align: middle;
+    }
+
+    &__unit {
+        vertical-align: middle;
+        font-size: 70%;
+    }
+
+    // Modifiers | Sizes:
+    &--size--large {
+        // font-size: 28px;
+        font-size: 28rem;
+    }
+    &--size--medium {
+        font-size: 21rem;
+    }
+
+    // Modifiers | Types:
+    &--type--before-discount {
+        position: relative;
+        color: hsl(0, 0%, 80%);
+
+        // The line-through:
+        &::after {
+            content: "";
+            @include absolute-vertical-center;
+            right: 0;
+            left: 0;
+            background-color: currentColor;
+            height: 2px;
+        }
+    }
+}

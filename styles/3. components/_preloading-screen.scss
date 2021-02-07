@@ -1,0 +1,20 @@
+.preloading-screen {
+    position: fixed;
+    top: 0;
+    right: 0;
+    left: 0;
+    bottom: 0;
+    @include flex-center;
+    background-color: white;
+    z-index: z-index(preloading-screen);
+}
+
+.preloading-screen__spinner {
+    width: 35px;
+    height: 35px;
+    border: 3px solid lighten(color("blue"), 40%);
+    border-top: 3px solid color("blue");
+    border-radius: 50%;
+    will-change: transform;
+    animation: spin 0.75s linear infinite;
+}

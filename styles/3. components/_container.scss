@@ -1,0 +1,17 @@
+$container-content-max-width: 1140px;
+$container-gutter-width: 30px;
+
+.container {
+    @include padding-x($container-gutter-width);
+
+    // When the viewport gets larger than the sum of the container's max width + gutters on both sides:
+    @media (min-width: $container-content-max-width + ($container-gutter-width * 2)) {
+        // Half the viewport width - Half the width of the content area = Padding on one side of the container:
+        @include padding-x(calc(50% - #{$container-content-max-width / 2}));
+    }
+
+    // Futuristic! https://caniuse.com/css-math-functions:
+    // @include padding-x(max(#{$container-gutter-width}, 50% - #{$container-content-max-width / 2}));
+}
+
+// For more information on this technique, visit https://ishadeed.com/article/styling-wrappers-css

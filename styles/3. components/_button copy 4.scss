@@ -1,0 +1,137 @@
+.button {
+    cursor: pointer;
+    border-radius: 15rem;
+    user-select: none;
+    will-change: transform;
+    transition: all cubic-bezier(0.17, 0.82, 0.15, 0.8) 100ms;
+    padding: 0.65em 1.3em;
+    @include flex-center;
+
+    &:active {
+        transform: translateY(2px);
+    }
+
+    &:disabled {
+        opacity: 0.7;
+        pointer-events: none;
+    }
+
+    // Elements:
+    &__content {
+        @include flex-center;
+        transition: all ease 200ms;
+    }
+
+    &__label {
+        font-weight: bold;
+    }
+
+    &__icon {
+        margin-right: 0.6em;
+        width: 1em;
+        height: 1em;
+        fill: currentColor;
+    }
+
+    &__number {
+        margin-right: 10px;
+        // When when the number element exists in a button, it'd be better if the padding-left of that button is a little less than it normally is. Thus, we create a negative margin-left for the number element to achieve that.
+        margin-left: -0.2em;
+        border-radius: 6px;
+        background-color: rgba(black, 17%);
+        width: 20px;
+        height: 20px;
+        font-weight: bold;
+        text-align: center;
+        line-height: 20px;
+        // Since normally numbers appear higher in Persian fonts, we push the number down a little bit.
+        padding-top: 1px;
+    }
+
+    &__loader {
+        position: absolute;
+        visibility: hidden;
+        will-change: transform;
+        transition: all ease 200ms;
+        transform: scale(1.5);
+        opacity: 0;
+
+        // The spinner:
+        &::before {
+            content: "";
+            display: block;
+            width: 20px;
+            height: 20px;
+            border: 2px solid rgba(white, 50%);
+            border-top: 2px solid white;
+            border-radius: 50%;
+            will-change: transform;
+            animation: spin 0.75s linear infinite;
+        }
+    }
+
+    // Modifiers | Sizes:
+    &--size--large {
+        font-size: 22rem;
+    }
+
+    &--size--medium {
+        font-size: 19rem;
+    }
+
+    &--size--small {
+        font-size: 15rem;
+        @include padding-y(0.75em);
+    }
+
+    // Modifiers | Themes:
+    @each $name, $color in $brand-colors {
+        &--theme--#{$name} {
+            background-color: $color;
+            color: color-to-contrast($color);
+            box-shadow: 0 3px 10px rgba($color, 20%);
+
+            @include can-hover {
+                &:hover {
+                    background-color: darken($color, 5%);
+                }
+            }
+
+            &:active {
+                background-color: darken($color, 10%);
+            }
+        }
+    }
+
+    &--theme--hollow {
+        background-color: white;
+        color: #222222;
+
+        @include can-hover {
+            &:hover {
+                background-color: #f3f3f3;
+            }
+        }
+
+        &:active {
+            background-color: #e6e6e6;
+        }
+    }
+
+    // Modifier | Loading:
+    &--loading {
+        pointer-events: none;
+        box-shadow: none;
+    }
+
+    &--loading &__content {
+        transform: scale(0.7);
+        opacity: 0;
+    }
+
+    &--loading &__loader {
+        visibility: visible;
+        transform: scale(1);
+        opacity: 1;
+    }
+}

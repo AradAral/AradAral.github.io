@@ -1,0 +1,76 @@
+﻿// Declares project-specific basic/global styles
+$body-background-color: #f8f9fb;
+// $body-background-color: #f2f4f8;
+// $body-background-color: #f3f4f6;
+
+html {
+    font-family: $primary-font-name;
+
+    @include respond($until: small-3) {
+        // When the viewport's width is smaller than a certain number, we want to set the root element's font-size to 87% of 1px so that every text that uses the rem unit scales down 13%.
+        font-size: 0.85px;
+    }
+
+    @include respond($from: small-3) {
+        // We set the root element's font-size to "1px" so that "1rem" would always correspond to "1px". This makes working with the "rem" unit much more convenient.
+        font-size: 1px;
+    }
+}
+
+body {
+    background-color: $body-background-color;
+    -webkit-tap-highlight-color: transparent;
+    overflow: {
+        x: hidden;
+        // Always show scrollbar (this prevents the page from shifting left and right the height of the page changes)
+        y: scroll;
+    }
+
+    font-size: 15rem; // To set the default font-size to 15px
+    direction: rtl;
+}
+
+// For smooth and quick mobile clicks (i.e. taps):
+// TODO: Maybe change the selector to "*"?
+a,
+area,
+button,
+[role="button"],
+input:not([type="range"]),
+label,
+select,
+summary,
+textarea {
+    -ms-touch-action: manipulation;
+    touch-action: manipulation;
+}
+
+// Set custom selection color:
+::-moz-selection {
+    background-color: color("red");
+    color: color-to-contrast(color("red"));
+}
+
+::selection {
+    background-color: color("red");
+    color: color-to-contrast(color("red"));
+}
+
+// Global animations:
+@keyframes spin {
+    to {
+        transform: rotate(360deg);
+    }
+}
+
+@keyframes slide-down {
+    to {
+        transform: translateY(100%);
+    }
+}
+
+@keyframes slide-up {
+    from {
+        transform: translateY(100%);
+    }
+}

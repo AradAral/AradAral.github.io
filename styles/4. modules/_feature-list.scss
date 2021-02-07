@@ -1,0 +1,26 @@
+.feature-list {
+    // Elements:
+    &__item {
+        color: #7f7f7f;
+        line-height: 2.3;
+        font: {
+            size: 17rem;
+            weight: bold;
+        }
+        margin-top: 10px;
+    }
+
+    &__icon {
+        display: inline;
+        vertical-align: middle;
+        fill: currentColor;
+        height: 1.2em;
+        width: 1.2em;
+    }
+
+    &__text {
+        vertical-align: middle;
+        // margin-right: 8px;
+        margin-right: 0.4em;
+    }
+}

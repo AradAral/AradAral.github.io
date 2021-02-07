@@ -1,0 +1,23 @@
+﻿$primary-font-name: Vazir;
+
+// The following text should be present above the line where fonts are defined, as stated in https://fontiran.com/about_licenses
+/*
+    IRANYekan fonts are considered proprietary software. To gain
+    information about the laws regarding the use of these fonts, please
+    visit www.fontiran.com
+    This set of fonts are used in this project under the license: Y9W6Q9
+*/
+
+// TODO: Maybe convert the fonts urls to base64?
+// WHY: Since all browser versions that support "WebAssembly" also support "woff2", we don't need any other font formats here. https://caniuse.com/?search=webassembly and https://caniuse.com/?search=woff2
+@font-face {
+    font-family: $primary-font-name;
+    font-weight: normal;
+    src: url(/styles/fonts/vazir/regular.woff2);
+}
+
+@font-face {
+    font-family: $primary-font-name;
+    font-weight: bold;
+    src: url(/styles/fonts/vazir/medium.woff2);
+}

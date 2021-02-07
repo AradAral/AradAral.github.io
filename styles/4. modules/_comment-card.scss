@@ -1,0 +1,130 @@
+$head-top: -27px; // How much the "__head" will go beyond the top edge of the box. (In negative)
+$avatar-top: -10px; // How much the "__avatar" will go beyond the top edge of the "__head". (In negative)
+$avatar-right: -25px; // How much the "__avatar" will go beyond the right edge of the box. (In negative)
+
+$right-overflow: -$avatar-right; // How much the content will go beyond the right edge of the box. Negation of $avatar-right
+$top-overflow: -$head-top + -$avatar-top; // How much the content will go beyond the top edge of the box. Sum of the negation of $head-top and $avatar-top
+
+.comment-card {
+    position: relative;
+    // We, first, add a top margin to our box equal to how much the content is overflown from top edge of card in order to compensate for it + a 30px natural space between comment cards.
+    margin-top: $top-overflow + 30px;
+
+    // We then also add a right margin to our box equal to how much the content is overflown from right edge of the card in order to compensate for it.
+    @include respond($until: small-3) {
+        // In smallers screens, we're okay with the card's right-overflow not being completely compensated for, so we subtract 10px from "$right-overflow" and assign the result to the "margin-right" property
+        margin-right: $right-overflow - 10px;
+
+        // In CSS, when an element has a "transform" property set to anything other than "none", it would become the containing block for its fixed-positioned descendants.
+        // Doing this to the "comment-card" would allow us to set "position: fixed" on the "__date" element and then we'd be able to position it relative to the card in smaller screens.
+        // This wouldn't otherwise be possible as the parent of "__date" is "__head" which itself has a "position: absolute", as such normally any position (top, right, bottom, left) on "__date" would be relative to "__head", which is not what we want in smaller screens.
+        transform: rotate(0deg);
+    }
+
+    @include respond($from: small-3) {
+        margin-right: $right-overflow;
+    }
+
+    // Elements:
+    &__head {
+        @include flex-center;
+        background-color: white;
+        border-radius: $card-border-radius $card-border-radius 0 0;
+        position: absolute;
+        top: $head-top;
+        right: 0;
+        height: 45px;
+        user-select: none;
+        // We want the head part to at most cover 90% percent of the width of the card, because otherwise it wouldn't be recognizable as a distinct section.
+        max-width: 90%;
+
+        @include respond($until: small-3) {
+            @include padding-x($right: 52px, $left: 25px);
+        }
+
+        @include respond($from: small-3) {
+            @include padding-x($right: 60px, $left: 30px);
+        }
+    }
+
+    &__avatar {
+        width: 65px;
+        height: 65px;
+        border-radius: 50%;
+        position: absolute;
+        right: $avatar-right;
+        top: $avatar-top;
+        box-shadow: 0 3px 10px rgba(black, 5%);
+    }
+
+    &__name {
+        color: #557184;
+        font: {
+            size: 14rem;
+            weight: bold;
+        }
+
+        flex: 1;
+        @include text-ellipsis;
+    }
+
+    &__buyer-indicator {
+        color: semantic-color("success");
+        font-size: 12rem;
+        margin-right: 10px;
+
+        &::before {
+            content: "خریدار دوره";
+        }
+    }
+
+    &__date {
+        color: #c2c2c2;
+        font-size: 12rem;
+
+        @include respond($until: small-3) {
+            // For why this is "position: fixed", refer to "transform: rotate(0deg);" on ".comment-card".
+            position: fixed;
+            bottom: 20px;
+            left: 30px;
+        }
+
+        @include respond($from: small-3) {
+            margin-right: 20px;
+        }
+    }
+
+    &__body {
+        @include respond($until: small-3) {
+            padding: 25px 30px 60px;
+        }
+
+        @include respond($from: small-3) {
+            padding: 25px 50px 25px;
+        }
+
+        font-size: 15rem;
+        line-height: 2.5;
+    }
+
+    // Modifiers | Types:
+    &--type--admin &__name {
+        color: semantic-color("alert");
+    }
+
+    &--type--reply {
+        // We want a reply comment card to stick to its above comment card. But we can't just set the "margin-top" to "0" because that would make the "__head" overlap the above comment card, so we set the "margin-top" equal to how much "__head" is beyond the top edge of the box to compensate for that and effectively make the visual top space zero.
+        margin-top: -$head-top;
+
+        // We want the right edge of a reply comment card to be indented by "30px" in comparison with its above comment card. But we can't just set the "margin-right" to "30px", because the above comment card itself has a "margin-right" equal to "$right-offset", so in order to compensate for that, we also add that margin. When we do that, it's as if we first get to the baseline where the right edges of this card and the above one are parallel, then from there we add our own "30px" right margin.
+        @include respond($until: small-3) {
+            // Previously, in ".comment-card", in smaller screens we subtracted 10px from "$right-overflow" since we didn't want to completely compensate for the right overflow of the card's content.
+            // Now here, we subtract 10px from "$right-overflow" to reflect that and to reach the actual right margin of the above card, from there, again, we add our own standard 30px indentation.
+            margin-right: ($right-overflow - 10px) + 30px;
+        }
+
+        @include respond($from: small-3) {
+            margin-right: $right-overflow + 30px;
+        }
+    }
+}

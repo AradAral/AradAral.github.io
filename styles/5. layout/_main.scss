@@ -1,0 +1,9 @@
+.main {
+    @include respond($until: small-3) {
+        margin-top: $header-height--mobile;
+    }
+
+    @include respond($from: small-3) {
+        margin-top: $header-height;
+    }
+}

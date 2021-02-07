@@ -1,0 +1,84 @@
+$input-right-padding: 20px;
+$icon-width: 20px;
+$icon-left: 15px;
+$textbox-height: 50px;
+
+.textbox {
+    position: relative;
+    display: block;
+    height: $textbox-height;
+    transition: all ease 300ms;
+    font-size: 15rem;
+    text-align: right;
+
+    // Elements:
+    &__input {
+        display: block;
+        width: 100%;
+        height: 100%;
+        background-color: #f6f6f6;
+        border-radius: 11px;
+        padding: {
+            right: $input-right-padding;
+            left: $icon-left + $icon-width + $icon-left;
+        }
+        transition: inherit;
+        font-size: 14rem;
+
+        /* box-shadow: inset 0 1px 3px 0 rgba(0, 0, 0, .08); */
+
+        &::placeholder {
+            opacity: 0;
+            color: #7b7b7b;
+            transition: inherit;
+        }
+        &:focus::placeholder {
+            opacity: 1;
+        }
+
+        // Neutralizing default styling that Webkit browsers apply on textboxes with type="search":
+        &[type="search"]::-webkit-search-decoration,
+        &[type="search"]::-webkit-search-results-button,
+        &[type="search"]::-webkit-search-cancel-button,
+        &[type="search"]::-webkit-search-results-decoration {
+            -webkit-appearance: none;
+        }
+    }
+
+    &__label {
+        @include absolute-vertical-center;
+        color: #bebebe;
+        right: $input-right-padding;
+        transition: inherit;
+        user-select: none;
+        pointer-events: none;
+        transform-origin: right; // We set the transform origin to "right" so that when we scale down the label, the position of its right edge doesn't change.
+        will-change: transform;
+    }
+
+    &__icon {
+        @include absolute-vertical-center;
+        fill: #d5d5d5;
+        width: $icon-width;
+        height: $icon-width;
+        left: $icon-left;
+        pointer-events: none;
+    }
+
+    &__input:focus ~ &__label,
+    &__input:not(:placeholder-shown) ~ &__label {
+        // Initially, I used the "top" and "font-size" properties to animate the label, to make it smaller and take it to the top of the textbox. This, despite being more intuitive, resulted in a somewhat laggy animation, due to reflow. See https://stackoverflow.com/q/7761703/7734384 and https://www.paulirish.com/2012/why-moving-elements-with-translate-is-better-than-posabs-topleft/
+        // Because of this, I decided to use transforms instead. But this makes the situation a little less intuitive, which means it may require some explanation:
+        // There are 3 steps to achieve the deired result:
+        // 1. We first bring up the label by half of the height of the textbox, this is done to effectively neutralize the effect of "top: 50%" on the label that was put on it as a part of centering it vertically within its parent.
+        // 2. With that, now the label sticks to the top of textbox, it's like a "top: 0". Now we want to bring it up by half of its own height, which would make the vertical-center of it aligned with the top of the textbox.
+        // 3. Lastly, we want to make it 20% smaller, we achieve that by setting its scale to 0.8. Note that the order of the "scale" and "translateY" functions matter.
+        transform: translateY(calc(-#{$textbox-height / 2} + -50%)) scale(0.8);
+        cursor: default;
+    }
+
+    // Modifiers | Content Direction:
+    &--ltr-content {
+        direction: ltr;
+    }
+}
